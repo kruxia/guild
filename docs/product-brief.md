@@ -1,4 +1,6 @@
-# Kruxia Guild: Product Brief
+# Kruxia Foundry: Product Brief
+
+*Humans and agents forging software together.*
 
 **Status**: Draft for review
 **Date**: 2026-10-03
@@ -6,9 +8,9 @@
 
 ## Summary
 
-Kruxia Guild runs software and business work through a staged process where AI agents do the work between checkpoints and people make the decisions at them. A request moves from idea to brief, spec, design, plan, stories, implementation and release. Each stage is an unattended job run by a coding agent, and each stage boundary is a durable gate. Kruxia Guild is agent-neutral: it drives existing coding agents through a common driver interface. Claude Code is the first supported agent, for the proof of concept, and support for other coding agents follows. A gate can wait for days, records who decided and why, and resumes exactly where it stopped. Kruxia Flow, the PostgreSQL-based durable workflow engine, holds the state machine, so neither the human nor an agent's context window has to.
+Kruxia Foundry runs software and business work through a staged process where AI agents do the work between checkpoints and people make the decisions at them. A request moves from idea to brief, spec, design, plan, stories, implementation and release. Each stage is an unattended job run by a coding agent, and each stage boundary is a durable gate. Kruxia Foundry is agent-neutral: it drives existing coding agents through a common driver interface. Claude Code is the first supported agent, for the proof of concept, and support for other coding agents follows. A gate can wait for days, records who decided and why, and resumes exactly where it stopped. Kruxia Flow, the PostgreSQL-based durable workflow engine, holds the state machine, so neither the human nor an agent's context window has to.
 
-The name reflects the model: a guild is a team of skilled people working in recognized roles, where the people who are accountable approve the work. In Kruxia Guild, agents do the craft work in each stage, and the humans who own each decision approve it with evidence in hand.
+The name reflects the model: a foundry turns raw material into finished parts through a sequence of stages, with inspection between them. In Kruxia Foundry, agents do the forging at each stage, and the people who own each decision inspect the result and approve it with evidence in hand.
 
 ## Problem
 
@@ -23,7 +25,7 @@ The research found four reasons existing tools don't solve this:
 
 ## Who it is for
 
-| User                          | Situation                                                                                                                         | What they need from Kruxia Guild                                                                                  |
+| User                          | Situation                                                                                                                         | What they need from Kruxia Foundry                                                                                |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | Solo builder                  | An experienced agentic developer who already runs idea → brief → spec → plan → implement by hand                                  | The process runs itself between decisions; they review at a few consistent checkpoints                            |
 | Two-owner product team        | A small company where one person owns the product and another owns the technology, with agents drafting business and product work | Each gate goes to the right owner, answerable from Slack or a phone                                               |
@@ -47,7 +49,7 @@ Two design partners shape the first release: a two-owner product team running bu
 - Replacing human judgment on what to build, how to design it, or whether it is ready to ship.
 - Fully autonomous "dark factory" development with no human review.
 - A chain of role-playing agents passing summaries to one another. Agents work from the approved artifacts directly.
-- Building a coding agent. Kruxia Guild drives existing coding agents and uses Kruxia Flow as its engine.
+- Building a coding agent. Kruxia Foundry drives existing coding agents and uses Kruxia Flow as its engine.
 - Lock-in to one agent vendor. Claude Code comes first for the proof of concept, not as a permanent dependency.
 - An IDE or code editor.
 
@@ -68,7 +70,7 @@ flowchart LR
     G5 -. revise .-> Stories
 ```
 
-The idea conversation stays human-led: it happens in the person's own coding agent session and ends by submitting the work to Kruxia Guild over MCP. From there:
+The idea conversation stays human-led: it happens in the person's own coding agent session and ends by submitting the work to Kruxia Foundry over MCP. From there:
 
 - **Triage** decides how much process the request needs. A feature gets all six gates; a small change gets one combined plan gate; a bug fix goes straight to a failing-test reproduction and a story gate.
 - **Stage agents** each run as a fresh, sandboxed coding agent session that reads the approved upstream artifacts, produces its own artifact, and returns structured output with a status of `ok`, `blocked` or `failed`. A `blocked` status opens a clarify gate instead of letting the agent guess.
@@ -115,7 +117,7 @@ Because the evidence contract, the checks worker, the locked acceptance tests an
 
 ## Dependencies
 
-Kruxia Guild depends on Kruxia Flow engine work that the research identified as blocking for days-long, human-gated workflows:
+Kruxia Foundry depends on Kruxia Flow engine work that the research identified as blocking for days-long, human-gated workflows:
 
 - per-workflow deadlines, since workflows waiting on review are currently failed after a global timeout;
 - signal waits that can repeat inside a revise loop, and signal data delivered to later steps;
@@ -158,7 +160,7 @@ Parallel stories also need dynamic fan-out or child workflows in the engine. Tha
 ## Open questions
 
 1. Which design partner workflow should be the second Phase 1 pilot after Kruxia Flow's own development?
-2. How should Kruxia Guild be packaged: as a Kruxia Flow add-on, a standalone service, or both?
+2. How should Kruxia Foundry be packaged: as a Kruxia Flow add-on, a standalone service, or both?
 3. Should stage content vendor selected superpowers skills, or interoperate with an installed copy?
 4. Which authentication models should drivers support: personal subscription tokens, API keys, or both? A hosted product requires API keys for every agent.
 5. What does the review page need beyond a "waiting on you" queue and approve / revise / reject actions?
